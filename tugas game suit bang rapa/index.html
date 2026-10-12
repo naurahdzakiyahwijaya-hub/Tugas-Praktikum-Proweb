@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Suit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <div class="container">
+        <h1>GAME SUIT</h1>
+
+        <p>Pilih Jenis Suit:</p>
+        <select id="pilihan-suit" onchange="jenisSuit()">
+            <option value="bgs">Batu, Gunting, Kertas</option>
+            <option value="gos">Gajah, Orang, Semut</option>
+            <option value="jari">Jempol, Telunjuk, Kelingking</option>
+        </select>
+
+        <p>Silakan Pilih:</p>
+        
+        <div id="area-tombol"></div>
+
+        <div class="hasil-box">
+            <p id="info-pilihan">Pilihanmu: - | Komputer: -</p>
+            <h2 id="info-hasil">-</h2>
+        </div>
+    </div>
+
+    <script>
+        let jenisPermainan = "bgs";
+        let daftarPilihan = [];
+
+        function jenisSuit() {
+            jenisPermainan = document.getElementById("pilihan-suit").value;
+            buatTombol();
+        }
+        function buatTombol() {
+            if (jenisPermainan === "bgs") {
+                daftarPilihan = ['Batu', 'Gunting', 'Kertas'];
+                document.getElementById("area-tombol").innerHTML = `
+                    <button type="button" onclick="mainkanGame('Batu')">Batu</button>
+                    <button type="button" onclick="mainkanGame('Gunting')">Gunting</button>
+                    <button type="button" onclick="mainkanGame('Kertas')">Kertas</button>
+                `;
+            } else if (jenisPermainan === "gos") {
+                daftarPilihan = ['Gajah', 'Orang', 'Semut'];
+                document.getElementById("area-tombol").innerHTML = `
+                    <button type="button" onclick="mainkanGame('Gajah')">Gajah</button>
+                    <button type="button" onclick="mainkanGame('Orang')">Orang</button>
+                    <button type="button" onclick="mainkanGame('Semut')">Semut</button>
+                `;
+            } else if (jenisPermainan === "jari") {
+                daftarPilihan = ['Jempol', 'Telunjuk', 'Kelingking'];
+                document.getElementById("area-tombol").innerHTML = `
+                    <button type="button" onclick="mainkanGame('Jempol')">Jempol</button>
+                    <button type="button" onclick="mainkanGame('Telunjuk')">Telunjuk</button>
+                    <button type="button" onclick="mainkanGame('Kelingking')">Kelingking</button>
+                `;
+            }
+        }
+
+        buatTombol();
+
+        function mainkanGame(pilihanPemain) {
+            let pilihanKomputer = daftarPilihan[Math.floor(Math.random() * daftarPilihan.length)];
+            let hasil = "";
+
+            if (pilihanPemain === pilihanKomputer) {
+                hasil = "SERI!";
+            } else if (jenisPermainan === "bgs") {
+                if (
+                    (pilihanPemain === "Batu" && pilihanKomputer === "Gunting") ||
+                    (pilihanPemain === "Gunting" && pilihanKomputer === "Kertas") ||
+                    (pilihanPemain === "Kertas" && pilihanKomputer === "Batu")
+                ) {
+                    hasil = "MENANGG CUYY!!";
+                } else {
+                    hasil = "DIHH KALAH LU!";
+                }
+            } else if (jenisPermainan === "gos") {
+                if (
+                    (pilihanPemain === "Gajah" && pilihanKomputer === "Orang") ||
+                    (pilihanPemain === "Orang" && pilihanKomputer === "Semut") ||
+                    (pilihanPemain === "Semut" && pilihanKomputer === "Gajah")
+                ) {
+                    hasil = "MENANGG CUYY!!";
+                } else {
+                    hasil = "DIHH KALAH LU!";
+                }
+            } else if (jenisPermainan === "jari") {
+                if (
+                    (pilihanPemain === "Jempol" && pilihanKomputer === "Telunjuk") ||
+                    (pilihanPemain === "Telunjuk" && pilihanKomputer === "Kelingking") ||
+                    (pilihanPemain === "Kelingking" && pilihanKomputer === "Jempol")
+                ) {
+                    hasil = "MENANGG CUYY!!";
+                } else {
+                    hasil = "DIHH KALAH LU!";
+                }
+            }
+
+
+            document.getElementById("info-pilihan").innerText = "Pilihanmu: " + pilihanPemain + " | Komputer: " + pilihanKomputer;
+            document.getElementById("info-hasil").innerText = hasil;
+        }
+
+    </script>
+</body>
+</html>
